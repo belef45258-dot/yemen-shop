@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class CartResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'currency' => $this->currency,
+            'coupon_code' => $this->coupon_code,
+            'items' => CartItemResource::collection($this->whenLoaded('items')),
+            'item_count' => $this->item_count,
+            'subtotal' => $this->subtotal,
+        ];
+    }
+}
